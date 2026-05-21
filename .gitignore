@@ -4,6 +4,7 @@ rpal20
 
 # Generated outputs
 output.*
+*.exe
 
 # OS / editor
 .DS_Store
