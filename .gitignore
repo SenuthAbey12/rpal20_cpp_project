@@ -1,0 +1,11 @@
+# Build artifacts
+rpal20
+*.o
+
+# Generated outputs
+output.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
