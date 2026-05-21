@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: make
+
+      - name: Package binary + tests
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          tar -czf dist/rpal20-linux-x86_64.tar.gz rpal20 rpal
+
+      - name: Package source
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          git archive --format=zip --output=dist/rpal20-source.zip HEAD
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/rpal20-linux-x86_64.tar.gz
+            dist/rpal20-source.zip
