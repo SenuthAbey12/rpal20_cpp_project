@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: make
+
+      - name: Run RPAL test cases
+        run: |
+          set -euo pipefail
+          for file in rpal/*; do
+            if [ -f "$file" ]; then
+              echo "Running: $file"
+              ./rpal20 "$file"
+            fi
+          done

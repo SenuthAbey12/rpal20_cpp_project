@@ -1,0 +1,3 @@
+let Abs N =
+    N gr 0 -> N | 0 - N
+in Print (Abs -3)
